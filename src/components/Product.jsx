@@ -22,6 +22,13 @@ export class Product extends Component {
     });
   }
 
+  clickProductListApi = () => {
+    this.props.dispatch({
+      type: "product/updateListHttp",
+      payload: '新商品Api',
+    });
+  }
+
 
 
   clickGoToHandler = () => {
@@ -49,6 +56,9 @@ export class Product extends Component {
         </button>
         <button onClick={this.clickProductListAsync}>
           新增商品列表Async
+        </button>
+        <button onClick={this.clickProductListApi}>
+          新增商品列表Api
         </button>
       
         <Link to="/">去首頁</Link>

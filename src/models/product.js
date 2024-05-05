@@ -29,8 +29,25 @@ export default {
     effects:{
         *updateListAsync({ payload }, {  put }) {
             yield put({ type: 'updateList', payload });
+        },
+        *updateListHttp({ payload }, {  call,put }) {
+            const {data} = yield call(api.getProduct);
+            yield put({ type: 'updateList', payload:data });
         }
-    
+    },
+    subscriptions: {
+        setup({ dispatch, history }) {
+         window.onresize=()=>{
+            dispatch({ type: 'updateList', payload: 'resize' });
+         }
+        },
+        setupHistory({ dispatch, history }) {
+            return history.listen(({ pathname, search }) => {
+                if (pathname === '/product') {
+                    dispatch({ type: 'updateList', payload: 'product' });
+                }
+            });
+        }
     }
 
 
